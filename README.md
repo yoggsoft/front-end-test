@@ -1,4 +1,11 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Front End Test
+
+## Tasks
+
+- [ ] Drag & Drop functionality.
+- [ ] Right-click context menu.
+- [ ] Modals for item details and edits.
+- [ ] Data updates dynamically based on user actions.
 
 ## Getting Started
 
@@ -6,31 +13,76 @@ First, run the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+**Task Description**:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Create a simple **planning screen** that includes the following features:
 
-## Learn More
+1. **Drag & Drop Functionality**:
+    - Allow users to drag and drop items between different days & users.
+2. **Right-Click Context Menu**:
+    - Enable a right-click feature on items to open a context menu with at least two actions (e.g., Edit and Delete).
+3. **Modals**:
+    - Include modals triggered by user interactions (e.g., clicking a button or selecting an option in the context menu).
+    - The modal should display detailed information about the selected item and allow edits.
+4. **Dynamic Data Handling**:
+    - Use **fake data** to populate the planning screen dynamically (no need for a backend).
+    - Ensure data updates in real-time when an item is dragged, dropped, or modified.
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+**Tech Requirements**:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+You must use the following technologies:
 
-## Deploy on Vercel
+- **React** (functional components and hooks).
+- **TypeScript** (strict type-checking is expected).
+- **TailwindCSS** (for styling).
+- **Next.js** (to structure the application).
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+**Assets Provided**:
+
+- A **screenshot/mockup** of the planning screen to replicate.
+- You can use fake data
+- ⚠️ NO **AI** CODING ⚠️
+
+---
+
+**Submission Requirements**:
+
+1. **Code Submission**:
+    - Submit your project via a GitHub repository. Ensure your code is clean, modular, and well-documented.
+2. **Features Checklist**:
+    - Verify that the following features are implemented:
+        - Drag & Drop functionality.
+        - Right-click context menu.
+        - Modals for item details and edits.
+        - Data updates dynamically based on user actions.
+3. **Deployment (Optional)**:
+    - Deploy the application on a free hosting platform like **Vercel** or **Netlify**.
+4. **Instructions**:
+    - Include a `README.md` file with:
+        - Steps to run the project locally.
+        - A brief explanation of your approach.
+
+---
+
+**Evaluation Criteria**:
+
+Your submission will be reviewed by our Front-End Lead Developer. The evaluation will focus on:
+
+1. **Code Quality**:
+    - Cleanliness, structure, and adherence to best practices.
+2. **Feature Completion**:
+    - Full implementation of required features.
+3. **UI/UX Fidelity**:
+    - How closely the UI matches the provided screenshot/mockup.
+4. **Performance**:
+    - Efficient handling of drag & drop and modal interactions.
+5. **Innovative Thinking**:
+    - Bonus points for creative enhancements or thoughtful UX improvements beyond the requirements.
