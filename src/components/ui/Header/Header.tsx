@@ -1,8 +1,10 @@
 import React from 'react';
 import Image from 'next/image';
-import { loadEnvFile } from 'process';
 
-export default function Header() {
+import { Icon } from '@/components/ui';
+import { faCalendarDays } from '@fortawesome/free-solid-svg-icons';
+
+const Header: React.FC<any> = () => {
   return (
     <header className="bg-white shadow">
       <nav aria-label="Global" className="mx-auto flex items-center justify-between lg:p-2 lg:px-8">
@@ -17,8 +19,14 @@ export default function Header() {
               priority
           />
           </a>
+          <Icon
+            iconName={faCalendarDays}
+            color='red'
+          />
         </div>
       </nav>
     </header>
   );
-}
+};
+
+export default Header;
