@@ -6,6 +6,7 @@ import { FaBars, FaCircleXmark, FaXmark } from 'react-icons/fa6';
 
 import { Shift } from '@/@types';
 
+// Ugly but not very time efficient to do relational objects between users+shift types
 const FAKE_DATA: Shift[] = [
   { id: '1', assignee: 'Alexandre Timmermans', type: 'caisse', duration: '7h30', pauseDuration: '30m', day: 'Monday', wage: '99', startTime: '7:00', endTime: '15:00' },
   { id: '2', assignee: 'Alexandre Timmermans', type: 'caisse', duration: '7h30', pauseDuration: '30m', day: 'Thursday', wage: '99', startTime: '7:00', endTime: '15:00' },
@@ -33,6 +34,7 @@ const FAKE_DATA: Shift[] = [
   { id: '25', assignee: 'Elena Dimou', type: 'indisponible', duration: '', pauseDuration: '', day: 'Friday', wage: '', startTime: '', endTime: '' }
 ];
 
+// ugly but not time efficient using moment.js or enum lists for week days
 const DAYS = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 
 export default function PlanningScreen () {
@@ -83,7 +85,6 @@ export default function PlanningScreen () {
           />
         ))}
       </div>
-      {/* TODO move this modal */}
       {contextMenu.task && (
         <div
           className='absolute right-0 z-10 mt-2 py-1 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black/5 focus:outline-none'

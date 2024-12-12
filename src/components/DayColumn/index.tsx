@@ -11,7 +11,9 @@ interface DayColumnProps {
   openContextMenu: (event: React.MouseEvent, task: Shift) => void;
 }
 
-export default function DayColumn ({ day, shifts, moveShift, openContextMenu }: DayColumnProps) {
+export default function DayColumn ({
+  day, shifts, moveShift, openContextMenu
+}: DayColumnProps) {
   const handleDrop = (event: React.DragEvent) => {
     event.preventDefault();
     const taskId = event.dataTransfer.getData('taskId');
@@ -29,7 +31,7 @@ export default function DayColumn ({ day, shifts, moveShift, openContextMenu }: 
     <div
       onDrop={handleDrop}
       onDragOver={handleDragOver}
-      className='p-4 bg-white w-64 border-r-0 border last:border-r-1'
+      className='p-4 bg-white w-64 border-t-2 border-b-2 border-l-2 last:border-r-2'
     >
       <h2 className='text-lg font-bold mb-2'>{day}</h2>
       {shifts.map((task) => (
