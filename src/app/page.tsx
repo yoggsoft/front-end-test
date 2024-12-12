@@ -1,11 +1,11 @@
-import React from "react";
+import React from 'react';
 
-import { Container } from '@/components/ui';
+import { Container, PlanningScreen } from '@/components';
 
 export default function Home() {
   return (
     <Container>
-      hello
+      <PlanningScreen />
     </Container>
   );
 }

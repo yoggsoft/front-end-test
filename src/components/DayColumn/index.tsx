@@ -1,0 +1,50 @@
+import React from 'react';
+
+import { ShiftItem } from '@/components';
+
+import { Shift } from '@/@types';
+
+interface DayColumnProps {
+  day: string;
+  shifts: Array<Shift>;
+  moveTask: (id: string, newDay: string) => void;
+  openContextMenu: (event: React.MouseEvent, task: Shift) => void;
+}
+
+export default function DayColumn ({ day, shifts, moveTask, openContextMenu }: DayColumnProps) {
+  const handleDrop = (event: React.DragEvent) => {
+    event.preventDefault();
+    const taskId = event.dataTransfer.getData('taskId');
+
+    if (taskId) {
+      moveTask(taskId, day);
+    }
+  };
+
+  const handleDragOver = (event: React.DragEvent) => {
+    event.preventDefault();
+  };
+
+  return (
+    <div
+      onDrop={handleDrop}
+      onDragOver={handleDragOver}
+      className='p-4 bg-white w-64 border last:border-r-1 border-r-0'
+    >
+      <h2 className='text-lg font-bold mb-2'>{day}</h2>
+      {shifts.map((task) => (
+        <ShiftItem
+          key={task.id}
+          task={task}
+          onContextMenu={(event) => {
+            event.preventDefault();
+            openContextMenu(event, task);
+          }}
+          onDragStart={(event, task) => {
+            event.dataTransfer.setData('taskId', task.id);
+          }}
+        />
+      ))}
+    </div>
+  );
+};
