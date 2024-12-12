@@ -31,7 +31,7 @@ export default function RootLayout({
       className=' h-full min-h-full min-w-full w-full'
     >
       <body
-        className={`${poppins.variable} antialiased h-full min-h-full min-w-full w-full overflow-hidden`}
+        className={`${poppins.variable} antialiased h-full min-h-full min-w-full w-full`}
       >
         <Header />
         {children}

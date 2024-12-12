@@ -31,6 +31,9 @@ export default {
         'red-light': '#ffcfc8',
         'red-extra-light': '#fcf3f'
       },
+      backgroundImage: {
+        stripe: 'repeating-linear-gradient(-45deg, #f7f9ff 0px, #f7f9ff 20px, #f1f2f8 20px, #f1f2f8 40px)'
+      }
     },
   },
   plugins: [],

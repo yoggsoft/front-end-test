@@ -1,4 +1,4 @@
-type ShiftType = 'caisse' | 'fermeture' | 'conge' | 'recuperation' | 'ouverture' | 'camion';
+type ShiftType = 'caisse' | 'fermeture' | 'conge' | 'recuperation' | 'ouverture' | 'camion' | 'indisponible' | 'standard';
 
 export type Shift = {
   id: string;

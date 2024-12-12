@@ -2,7 +2,6 @@
 import React, { useState } from 'react';
 
 import { Icon, DayColumn } from '@/components';
-
 import { faCopy, faBars, faCircleXmark, faXmark } from '@fortawesome/free-solid-svg-icons';
 
 import { Shift } from '@/@types';
@@ -15,7 +14,27 @@ const fakeData: Shift[] = [
   { id: '5', assignee: 'Alexandre Timmermans', type: 'fermeture', duration: '6h30', pauseDuration: '30m', day: 'Monday', wage: '85', startTime: '18:00', endTime: '1:00' },
   { id: '6', assignee: 'Alexandre Timmermans', type: 'fermeture', duration: '6h30', pauseDuration: '30m', day: 'Friday', wage: '85', startTime: '18:00', endTime: '1:00' },
   { id: '7', assignee: 'Alexandre Timmermans', type: 'fermeture', duration: '6h30', pauseDuration: '30m', day: 'Saturday', wage: '85', startTime: '18:00', endTime: '1:00' },
+  { id: '8', assignee: 'Eloïse Leroy', type: 'standard', duration: '8h30', pauseDuration: '30m', day: 'Monday', wage: '128', startTime: '8:00', endTime: '17:00' },
+  { id: '9', assignee: 'Eloïse Leroy', type: 'conge', duration: '12h40', pauseDuration: '', day: 'Wednesday', wage: '190', startTime: '', endTime: '' },
+  { id: '10', assignee: 'Eloïse Leroy', type: 'conge', duration: '12h40', pauseDuration: '', day: 'Thursday', wage: '190', startTime: '', endTime: '' },
+  { id: '11', assignee: 'Eloïse Leroy', type: 'conge', duration: '12h40', pauseDuration: '', day: 'Thursday', wage: '190', startTime: '', endTime: '' },
+  { id: '12', assignee: 'Eloïse Leroy', type: 'conge', duration: '12h40', pauseDuration: '', day: 'Friday', wage: '190', startTime: '', endTime: '' },
+  { id: '13', assignee: 'Eloïse Leroy', type: 'caisse', duration: '7h30', pauseDuration: '30m', day: 'Thursday', wage: '113', startTime: '7:00', endTime: '15:00' },
+  { id: '14', assignee: 'Eloïse Leroy', type: 'conge', duration: '12h40', pauseDuration: '', day: 'Sunday', wage: '190', startTime: '8:00', endTime: '16-30' },
+  { id: '15', assignee: 'Samuel Goosens', type: 'camion', duration: '7h30', pauseDuration: '30m', day: 'Monday', wage: '98', startTime: '7:00', endTime: '15:00' },
+  { id: '16', assignee: 'Samuel Goosens', type: 'camion', duration: '7h30', pauseDuration: '30m', day: 'Tuesday', wage: '98', startTime: '7:00', endTime: '15:00' },
+  { id: '17', assignee: 'Samuel Goosens', type: 'camion', duration: '7h30', pauseDuration: '30m', day: 'Wednesday', wage: '98', startTime: '7:00', endTime: '15:00' },
+  { id: '18', assignee: 'Samuel Goosens', type: 'camion', duration: '7h30', pauseDuration: '30m', day: 'Friday', wage: '98', startTime: '7:00', endTime: '15:00' },
+  { id: '19', assignee: 'Samuel Goosens', type: 'camion', duration: '7h30', pauseDuration: '30m', day: 'Saturday', wage: '98', startTime: '7:00', endTime: '15:00' },
+  { id: '20', assignee: 'Samuel Goosens', type: 'camion', duration: '7h30', pauseDuration: '30m', day: 'Sunday', wage: '98', startTime: '7:00', endTime: '15:00' },
+  { id: '21', assignee: 'Camille Delangre', type: 'fermeture', duration: '7h30', pauseDuration: '30m', day: 'Monday', wage: '120', startTime: '12:00', endTime: '20:00' },
+  { id: '22', assignee: 'Camille Delangre', type: 'fermeture', duration: '7h30', pauseDuration: '30m', day: 'Thursday', wage: '120', startTime: '12:00', endTime: '20:00' },
+  { id: '23', assignee: 'Camile Evrard', type: 'ouverture', duration: '7h30', pauseDuration: '30m', day: 'Wednesday', wage: '78', startTime: '7:00', endTime: '15:00' },
+  { id: '24', assignee: 'Elena Dimou', type: 'indisponible', duration: '', pauseDuration: '', day: 'Wednesday', wage: '', startTime: '', endTime: '' },
+  { id: '25', assignee: 'Elena Dimou', type: 'indisponible', duration: '', pauseDuration: '', day: 'Friday', wage: '', startTime: '', endTime: '' }
 ];
+
+const DAYS = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 
 export default function PlanningScreen () {
   const [tasks, setTasks] = useState<Shift[]>(fakeData);
@@ -56,12 +75,21 @@ export default function PlanningScreen () {
     // setContextMenu({ x: 0, y: 0, task: null });
   };
 
-  const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
-
   return (
     <div className='p-8' onClick={closeContextMenu}>
       <div className='flex'>
-        {days.map((day) => (
+        {DAYS.map((day) => (
+          <DayColumn
+            key={day}
+            day={day}
+            shifts={tasks.filter((task) => task.day === day)}
+            moveTask={moveTask}
+            openContextMenu={openContextMenu}
+          />
+        ))}
+      </div>
+      <div className='flex'>
+        {DAYS.map((day) => (
           <DayColumn
             key={day}
             day={day}
