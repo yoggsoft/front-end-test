@@ -7,17 +7,17 @@ import { Shift } from '@/@types';
 interface DayColumnProps {
   day: string;
   shifts: Array<Shift>;
-  moveTask: (id: string, newDay: string) => void;
+  moveShift: (id: string, newDay: string) => void;
   openContextMenu: (event: React.MouseEvent, task: Shift) => void;
 }
 
-export default function DayColumn ({ day, shifts, moveTask, openContextMenu }: DayColumnProps) {
+export default function DayColumn ({ day, shifts, moveShift, openContextMenu }: DayColumnProps) {
   const handleDrop = (event: React.DragEvent) => {
     event.preventDefault();
     const taskId = event.dataTransfer.getData('taskId');
 
     if (taskId) {
-      moveTask(taskId, day);
+      moveShift(taskId, day);
     }
   };
 

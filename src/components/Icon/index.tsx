@@ -4,12 +4,13 @@ import { IconBaseProps } from 'react-icons';
 interface IconProps extends IconBaseProps {
   Component: React.ComponentType<IconBaseProps>;
   color?: string;
-  size?: 'sm' | 'base';
+  size?: 'sm' | 'md' | 'base';
   className?: string;
 }
 
 const mapSizeToPx = {
   'sm': 12,
+  'md': 20,
   'base': 24
 };
 
