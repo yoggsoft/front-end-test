@@ -29,7 +29,7 @@ export default function DayColumn ({ day, shifts, moveTask, openContextMenu }: D
     <div
       onDrop={handleDrop}
       onDragOver={handleDragOver}
-      className='p-4 bg-white w-64 border last:border-r-1 border-r-0'
+      className='p-4 bg-white w-64 border-r-0 border last:border-r-1'
     >
       <h2 className='text-lg font-bold mb-2'>{day}</h2>
       {shifts.map((task) => (

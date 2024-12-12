@@ -1,7 +1,9 @@
 'use client';
 import React, { useState } from 'react';
 
-import { DayColumn } from '@/components';
+import { Icon, DayColumn } from '@/components';
+
+import { faCopy, faBars, faCircleXmark, faXmark } from '@fortawesome/free-solid-svg-icons';
 
 import { Shift } from '@/@types';
 
@@ -49,6 +51,11 @@ export default function PlanningScreen () {
     setContextMenu({ x: 0, y: 0, task: null });
   };
 
+  const duplicateTask = (id: string) => {
+    // setTasks((prevTasks) => prevTasks.filter((task) => task.id !== id));
+    // setContextMenu({ x: 0, y: 0, task: null });
+  };
+
   const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 
   return (
@@ -67,23 +74,33 @@ export default function PlanningScreen () {
       {/* TODO move this modal */}
       {contextMenu.task && (
         <div
-          className='absolute bg-white shadow-lg rounded p-2'
+          className='absolute right-0 z-10 mt-2 py-1 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black/5 focus:outline-none'
           style={{ top: contextMenu.y, left: contextMenu.x }}
+          role='menu'
+          aria-orientation='vertical'
+          aria-labelledby='menu-button'
         >
+          <button
+            onClick={() => contextMenu.task && duplicateTask(contextMenu.task?.id)}
+            className='block w-full text-left py-2 px-4 hover:bg-gray-100'
+          >
+            <Icon iconName={faCopy} />&nbsp;Copier
+          </button>
           <button
             onClick={() => {
               setModalContent(contextMenu.task);
               setIsModalOpen(true);
               closeContextMenu();
             }}
-            className='block w-full text-left p-2 hover:bg-gray-100'
+            className='block w-full text-left py-2 px-4 hover:bg-gray-100'
           >
-            Edit
+            <Icon iconName={faBars} />&nbsp;Edit
           </button>
           <button
             onClick={() => contextMenu.task && deleteTask(contextMenu.task?.id)}
-            className='block w-full text-left p-2 hover:bg-gray-100'
+            className='block w-full text-left py-2 px-4 hover:bg-gray-100 text-red'
           >
+            <Icon iconName={faCircleXmark} color='red' />&nbsp;
             Delete
           </button>
         </div>
@@ -123,9 +140,9 @@ export default function PlanningScreen () {
             </div>
             <button
               onClick={() => setIsModalOpen(false)}
-              className='absolute top-2 right-2 text-gray-500 hover:text-gray-700'
+              className='absolute top-2 right-2 text-black hover:text-gray-700'
             >
-              ×
+              <Icon iconName={faXmark} />
             </button>
           </div>
         </div>
