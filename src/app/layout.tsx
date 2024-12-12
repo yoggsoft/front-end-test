@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { Poppins } from 'next/font/google';
 
-import { Header } from '@/components/ui';
+import { Header } from '@/components';
 
 import './globals.css';
 
@@ -22,9 +22,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang='en' className=' h-full min-h-full min-w-full w-full'>
+    <html
+      lang='en'
+      className=' h-full min-h-full min-w-full w-full'
+    >
       <body
-        className={`${poppins.variable} antialiased h-full min-h-full min-w-full w-full overflow-hidden`}
+        className={`${poppins.variable} antialiased h-full min-h-full min-w-full w-full`}
       >
         <Header />
         {children}

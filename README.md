@@ -2,10 +2,10 @@
 
 ## Tasks
 
-- [ ] Drag & Drop functionality.
-- [ ] Right-click context menu.
+- [X] Drag & Drop functionality.
+- [X] Right-click context menu.
 - [ ] Modals for item details and edits.
-- [ ] Data updates dynamically based on user actions.
+- [X] Data updates dynamically based on user actions.
 
 ## Getting Started
 
