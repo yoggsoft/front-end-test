@@ -2,11 +2,11 @@
 import React, { useState } from 'react';
 
 import { Icon, DayColumn } from '@/components';
-import { faCopy, faBars, faCircleXmark, faXmark } from '@fortawesome/free-solid-svg-icons';
+import { FaBars, FaCircleXmark, FaXmark } from 'react-icons/fa6';
 
 import { Shift } from '@/@types';
 
-const fakeData: Shift[] = [
+const FAKE_DATA: Shift[] = [
   { id: '1', assignee: 'Alexandre Timmermans', type: 'caisse', duration: '7h30', pauseDuration: '30m', day: 'Monday', wage: '99', startTime: '7:00', endTime: '15:00' },
   { id: '2', assignee: 'Alexandre Timmermans', type: 'caisse', duration: '7h30', pauseDuration: '30m', day: 'Thursday', wage: '99', startTime: '7:00', endTime: '15:00' },
   { id: '3', assignee: 'Alexandre Timmermans', type: 'caisse', duration: '7h30', pauseDuration: '30m', day: 'Wednesday', wage: '99', startTime: '7:00', endTime: '15:00' },
@@ -37,7 +37,7 @@ const fakeData: Shift[] = [
 const DAYS = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 
 export default function PlanningScreen () {
-  const [tasks, setTasks] = useState<Shift[]>(fakeData);
+  const [tasks, setTasks] = useState<Shift[]>(FAKE_DATA);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalContent, setModalContent] = useState<Shift | null>(null);
   const [contextMenu, setContextMenu] = useState<{ x: number; y: number; task: Shift | null }>({ x: 0, y: 0, task: null });
@@ -70,24 +70,8 @@ export default function PlanningScreen () {
     setContextMenu({ x: 0, y: 0, task: null });
   };
 
-  const duplicateTask = (id: string) => {
-    // setTasks((prevTasks) => prevTasks.filter((task) => task.id !== id));
-    // setContextMenu({ x: 0, y: 0, task: null });
-  };
-
   return (
     <div className='p-8' onClick={closeContextMenu}>
-      <div className='flex'>
-        {DAYS.map((day) => (
-          <DayColumn
-            key={day}
-            day={day}
-            shifts={tasks.filter((task) => task.day === day)}
-            moveTask={moveTask}
-            openContextMenu={openContextMenu}
-          />
-        ))}
-      </div>
       <div className='flex'>
         {DAYS.map((day) => (
           <DayColumn
@@ -109,12 +93,6 @@ export default function PlanningScreen () {
           aria-labelledby='menu-button'
         >
           <button
-            onClick={() => contextMenu.task && duplicateTask(contextMenu.task?.id)}
-            className='block w-full text-left py-2 px-4 hover:bg-gray-100'
-          >
-            <Icon iconName={faCopy} />&nbsp;Copier
-          </button>
-          <button
             onClick={() => {
               setModalContent(contextMenu.task);
               setIsModalOpen(true);
@@ -122,13 +100,13 @@ export default function PlanningScreen () {
             }}
             className='block w-full text-left py-2 px-4 hover:bg-gray-100'
           >
-            <Icon iconName={faBars} />&nbsp;Edit
+            <Icon Component={FaBars} />&nbsp;Edit
           </button>
           <button
             onClick={() => contextMenu.task && deleteTask(contextMenu.task?.id)}
             className='block w-full text-left py-2 px-4 hover:bg-gray-100 text-red'
           >
-            <Icon iconName={faCircleXmark} color='red' />&nbsp;
+            <Icon Component={FaCircleXmark} color='red' />&nbsp;
             Delete
           </button>
         </div>
@@ -170,7 +148,7 @@ export default function PlanningScreen () {
               onClick={() => setIsModalOpen(false)}
               className='absolute top-2 right-2 text-black hover:text-gray-700'
             >
-              <Icon iconName={faXmark} />
+              <Icon Component={FaXmark} />
             </button>
           </div>
         </div>

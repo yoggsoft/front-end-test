@@ -1,25 +1,32 @@
 import React from 'react';
+import { IconBaseProps } from 'react-icons';
 
-import { FontAwesomeIcon, FontAwesomeIconProps } from '@fortawesome/react-fontawesome';
-
-interface IconProps extends Omit<FontAwesomeIconProps, 'icon'>  {
-  iconName: FontAwesomeIconProps['icon'];
+interface IconProps extends IconBaseProps {
+  Component: React.ComponentType<IconBaseProps>;
+  color?: string;
+  size?: 'sm' | 'base';
+  className?: string;
 }
 
+const mapSizeToPx = {
+  'sm': 12,
+  'base': 24
+};
+
 export default function Icon ({
-  iconName,
-  size = '1x',
+  Component,
   color = 'inherit',
+  size = 'base',
   className = '',
   ...props
 }: IconProps) {
   return (
-    <FontAwesomeIcon
-      icon={iconName}
+    <Component
       color={color}
-      size={size}
+      size={mapSizeToPx[size]}
       className={`custom-icon ${className}`}
       {...props}
     />
   );
-}
+};
+

@@ -3,7 +3,8 @@ import cx from 'classnames';
 import { Shift } from '@/@types';
 
 import { Icon } from '@/components';
-import { faClock, faCirclePause, faMoneyBill, faEuroSign, faWarning, faR, faC } from '@fortawesome/free-solid-svg-icons';
+import { FaRegClock, FaCirclePause, FaMoneyBill, FaEuroSign } from 'react-icons/fa6';
+import { PiWarningFill } from 'react-icons/pi';
 
 interface ShiftItemProps {
 	task: Shift;
@@ -46,7 +47,7 @@ export default function ShiftItem ({ task, onContextMenu, onDragStart }: ShiftIt
             {type[0]}{/* ugly, but don't wanna do icons for the type of shift assignment */}
           </span>
           <span className='flex justify-center items-center gap-1'>
-            <Icon iconName={faClock} size='sm' />
+            <Icon Component={FaRegClock} size='sm' />
             {duration}
           </span>
         </div>
@@ -71,23 +72,23 @@ export default function ShiftItem ({ task, onContextMenu, onDragStart }: ShiftIt
         <span>
           {startTime} - {endTime}
         </span>
-        {
-          type === 'ouverture' && (<Icon iconName={faWarning} color='orange' />)
-        }
+        <span>
+          {type === 'ouverture' && (<Icon Component={PiWarningFill} color='orange' />)}
+        </span>
       </div>
       <div className='flex gap-2 mb-2 text-sm whitespace-no-wrap text-gray-400'>
         <span className='flex justify-center items-center gap-1'>
-          <Icon iconName={faClock} size='sm' />
+          <Icon Component={FaRegClock} size='sm' />
           {duration}
         </span>
         <span className='flex justify-center items-center gap-1'>
-          <Icon iconName={faCirclePause} size='sm' />
+          <Icon Component={FaCirclePause} size='sm' />
           {pauseDuration}
         </span>
         <span className='flex justify-center items-center gap-1'>
-          <Icon iconName={faMoneyBill} size='sm' />
+          <Icon Component={FaMoneyBill} size='sm' />
           {wage}
-          <Icon iconName={faEuroSign} size='sm' />
+          <Icon Component={FaEuroSign} size='sm' />
         </span>
       </div>
       <div className={cx(
