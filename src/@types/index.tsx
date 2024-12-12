@@ -21,5 +21,3 @@ export type Employee = {
   workingDayDuration: string,
   photo: string
 }
-
-

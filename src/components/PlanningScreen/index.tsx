@@ -14,7 +14,6 @@ const FAKE_DATA: Shift[] = [
   { id: '5', assignee: 'Alexandre Timmermans', type: 'fermeture', duration: '6h30', pauseDuration: '30m', day: 'Monday', wage: '85', startTime: '18:00', endTime: '1:00' },
   { id: '6', assignee: 'Alexandre Timmermans', type: 'fermeture', duration: '6h30', pauseDuration: '30m', day: 'Friday', wage: '85', startTime: '18:00', endTime: '1:00' },
   { id: '7', assignee: 'Alexandre Timmermans', type: 'fermeture', duration: '6h30', pauseDuration: '30m', day: 'Saturday', wage: '85', startTime: '18:00', endTime: '1:00' },
-  { id: '8', assignee: 'Eloïse Leroy', type: 'standard', duration: '8h30', pauseDuration: '30m', day: 'Monday', wage: '128', startTime: '8:00', endTime: '17:00' },
   { id: '9', assignee: 'Eloïse Leroy', type: 'conge', duration: '12h40', pauseDuration: '', day: 'Wednesday', wage: '190', startTime: '', endTime: '' },
   { id: '10', assignee: 'Eloïse Leroy', type: 'conge', duration: '12h40', pauseDuration: '', day: 'Thursday', wage: '190', startTime: '', endTime: '' },
   { id: '11', assignee: 'Eloïse Leroy', type: 'conge', duration: '12h40', pauseDuration: '', day: 'Thursday', wage: '190', startTime: '', endTime: '' },
@@ -42,7 +41,7 @@ export default function PlanningScreen () {
   const [modalContent, setModalContent] = useState<Shift | null>(null);
   const [contextMenu, setContextMenu] = useState<{ x: number; y: number; task: Shift | null }>({ x: 0, y: 0, task: null });
 
-  const moveTask = (id: string, newDay: string) => {
+  const moveShift = (id: string, newDay: string) => {
     setTasks((prevTasks) =>
       prevTasks.map((task) =>
         task.id === id ? { ...task, day: newDay } : task
@@ -67,6 +66,7 @@ export default function PlanningScreen () {
 
   const deleteTask = (id: string) => {
     setTasks((prevTasks) => prevTasks.filter((task) => task.id !== id));
+    setIsModalOpen(false);
     setContextMenu({ x: 0, y: 0, task: null });
   };
 
@@ -78,7 +78,7 @@ export default function PlanningScreen () {
             key={day}
             day={day}
             shifts={tasks.filter((task) => task.day === day)}
-            moveTask={moveTask}
+            moveShift={moveShift}
             openContextMenu={openContextMenu}
           />
         ))}
@@ -98,60 +98,139 @@ export default function PlanningScreen () {
               setIsModalOpen(true);
               closeContextMenu();
             }}
-            className='block w-full text-left py-2 px-4 hover:bg-gray-100'
+            className='flex gap-2 w-full text-left py-2 px-4 hover:bg-gray-100 items-center'
           >
-            <Icon Component={FaBars} />&nbsp;Edit
+            <Icon Component={FaBars} size='md' />
+            <span>
+              Edit
+            </span>
           </button>
           <button
             onClick={() => contextMenu.task && deleteTask(contextMenu.task?.id)}
-            className='block w-full text-left py-2 px-4 hover:bg-gray-100 text-red'
+            className='flex gap-2 w-full text-left py-2 px-4 hover:bg-gray-100 items-center'
           >
-            <Icon Component={FaCircleXmark} color='red' />&nbsp;
-            Delete
+            <Icon Component={FaCircleXmark} size='md' color='red' />
+            <span className='text-red'>
+              Delete
+            </span>
           </button>
         </div>
       )}
       {isModalOpen && modalContent && (
-        <div className='fixed inset-x-0 right-0 z-50 mt-24 flex h-auto flex-col rounded-t-[10px] border'>
-          <div className='p-4 bg-white shadow-lg rounded-lg w-1/3'>
-            <h2 className='text-lg font-bold'>Edit Task</h2>
-            <div className='mt-4'>
-              <label className='block'>Task Name</label>
-              <input
-                type='text'
-                value={modalContent.id}
-                onChange={(e) =>
-                  setModalContent((prev) =>
-                    prev ? { ...prev, name: e.target.value } : null
-                  )
-                }
-                className='border p-2 rounded w-full'
-              />
+        <>
+          <div className='fixed inset-y-0 right-0 z-50 ml-24 flex h-full w-1/3 min-w-[360px] flex-col rounded-t-[10px] border'>
+            <div className='bg-white shadow-lg h-full'>
+              <div className='p-4 pt-[18px] flex border-b-2'>
+                <button
+                  onClick={() => setIsModalOpen(false)}
+                  className='mr-2 text-gray-300'
+                >
+                  <Icon Component={FaXmark} size='md' />
+                </button>
+                <h2 className='text-xl'>Edit Shift</h2>
+              </div>
+              <div className='mt-4 py-2 px-6'>
+                <label className='block mb-2 font-bold'>Day</label>
+                <select
+                  className='rounded border p-2 w-full'
+                  defaultValue={modalContent.day}
+                  name=''
+                  id=''
+                  onChange={(e) =>
+                    setModalContent((prev) =>
+                      prev ? { ...prev, day: e.target.value } : null
+                    )
+                  }
+                >
+                  {
+                    DAYS.map((day, index) => <option key={index} value={day}>{day}</option>)
+                  }
+                </select>
+              </div>
+              <div className='mt-4 py-2 px-6'>
+                <label className='block mb-2 font-bold'>Utilizateur</label>
+                <input
+                  type='text'
+                  value={modalContent.assignee}
+                  disabled
+                  onChange={(e) =>
+                    setModalContent((prev) =>
+                      prev ? { ...prev, asignee: e.target.value } : null
+                    )
+                  }
+                  className='border p-2 rounded w-full'
+                />
+              </div>
+              <div className='mt-4 py-2 px-6'>
+                <div className='flex gap-2'>
+                  <div className='flex flex-col'>
+                    <label className='block mb-2 font-bold'>Debut</label>
+                    <input
+                      disabled
+                      type='text'
+                      value={modalContent.startTime}
+                      className='border p-2 rounded'
+                      onChange={(e) =>
+                        setModalContent((prev) =>
+                          prev ? { ...prev, startTime: e.target.value } : null
+                        )
+                      }
+                    />
+                  </div>
+                  <div className='flex flex-col'>
+                    <label className='block mb-2 font-bold'>Fin</label>
+                    <input
+                      disabled
+                      type='text'
+                      value={modalContent.endTime}
+                      className='border p-2 rounded'
+                      onChange={(e) =>
+                        setModalContent((prev) =>
+                          prev ? { ...prev, endTime: e.target.value } : null
+                        )
+                      }
+                    />
+                  </div>
+                </div>
+                <div className='flex py-2'>
+                  <div>
+                    <label className='block mb-2 font-bold'>Pause non payée</label>
+                    <input
+                      type='text'
+                      disabled
+                      value={modalContent.pauseDuration}
+                      className='border p-2 rounded'
+                      onChange={(e) =>
+                        setModalContent((prev) =>
+                          prev ? { ...prev, name: e.target.value } : null
+                        )
+                      }
+                    />
+                  </div>
+                </div>
+              </div>
+              <div className='mt-4 p-6 flex gap-2'>
+                <button
+                  onClick={() => deleteTask(modalContent.id)}
+                  className='bg-red text-white py-2 px-4 rounded flex flex-grow font-semibold text-center'
+                >
+                  Delete
+                </button>
+                <button
+                  onClick={() => modalContent && editTask({ ...modalContent })}
+                  className='bg-green text-white py-2 px-4 rounded flex flex-grow font-semibold text-center'
+                >
+                  Save
+                </button>
+              </div>
             </div>
-            <div className='mt-4'>
-              <button
-                onClick={() =>
-                  modalContent && editTask({ ...modalContent })
-                }
-                className='bg-blue-500 text-white py-2 px-4 rounded'
-              >
-                Save
-              </button>
-              <button
-                onClick={() => deleteTask(modalContent.id)}
-                className='bg-red-500 text-white py-2 px-4 rounded ml-4'
-              >
-                Delete
-              </button>
-            </div>
-            <button
-              onClick={() => setIsModalOpen(false)}
-              className='absolute top-2 right-2 text-black hover:text-gray-700'
-            >
-              <Icon Component={FaXmark} />
-            </button>
           </div>
-        </div>
+          <div
+            className='absolute h-full v-hull bg-black z-40 min-w-full min-h-hull top-0 right-0 opacity-10'
+            onClick={() => setIsModalOpen(false)}
+          >
+          </div>
+        </>
       )}
     </div>
   );
