@@ -38,38 +38,38 @@ const FAKE_DATA: Shift[] = [
 const DAYS = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 
 export default function PlanningScreen () {
-  const [tasks, setTasks] = useState<Shift[]>(FAKE_DATA);
+  const [shifts, setShifts] = useState<Shift[]>(FAKE_DATA);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalContent, setModalContent] = useState<Shift | null>(null);
-  const [contextMenu, setContextMenu] = useState<{ x: number; y: number; task: Shift | null }>({ x: 0, y: 0, task: null });
+  const [contextMenu, setContextMenu] = useState<{ x: number; y: number; shift: Shift | null }>({ x: 0, y: 0, shift: null });
 
   const moveShift = (id: string, newDay: string) => {
-    setTasks((prevTasks) =>
-      prevTasks.map((task) =>
-        task.id === id ? { ...task, day: newDay } : task
+    setShifts((prevShifts) =>
+      prevShifts.map((shift) =>
+        shift.id === id ? { ...shift, day: newDay } : shift
       )
     );
   };
 
-  const openContextMenu = (event: React.MouseEvent, task: Shift) => {
-    setContextMenu({ x: event.clientX, y: event.clientY, task });
+  const openContextMenu = (event: React.MouseEvent, shift: Shift) => {
+    setContextMenu({ x: event.clientX, y: event.clientY, shift });
   };
 
   const closeContextMenu = () => {
-    setContextMenu({ x: 0, y: 0, task: null });
+    setContextMenu({ x: 0, y: 0, shift: null });
   };
 
-  const editTask = (updatedTask: Shift) => {
-    setTasks((prevTasks) =>
-      prevTasks.map((task) => (task.id === updatedTask.id ? updatedTask : task))
+  const editShift = (updatedShift: Shift) => {
+    setShifts((prevShifts) =>
+      prevShifts.map((shift) => (shift.id === updatedShift.id ? updatedShift : shift))
     );
     setIsModalOpen(false);
   };
 
-  const deleteTask = (id: string) => {
-    setTasks((prevTasks) => prevTasks.filter((task) => task.id !== id));
+  const deleteShift = (id: string) => {
+    setShifts((prevShifts) => prevShifts.filter((shift) => shift.id !== id));
     setIsModalOpen(false);
-    setContextMenu({ x: 0, y: 0, task: null });
+    setContextMenu({ x: 0, y: 0, shift: null });
   };
 
   return (
@@ -79,13 +79,13 @@ export default function PlanningScreen () {
           <DayColumn
             key={day}
             day={day}
-            shifts={tasks.filter((task) => task.day === day)}
+            shifts={shifts.filter((shift) => shift.day === day)}
             moveShift={moveShift}
             openContextMenu={openContextMenu}
           />
         ))}
       </div>
-      {contextMenu.task && (
+      {contextMenu.shift && (
         <div
           className='absolute right-0 z-10 mt-2 py-1 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black/5 focus:outline-none'
           style={{ top: contextMenu.y, left: contextMenu.x }}
@@ -95,7 +95,7 @@ export default function PlanningScreen () {
         >
           <button
             onClick={() => {
-              setModalContent(contextMenu.task);
+              setModalContent(contextMenu.shift);
               setIsModalOpen(true);
               closeContextMenu();
             }}
@@ -107,7 +107,7 @@ export default function PlanningScreen () {
             </span>
           </button>
           <button
-            onClick={() => contextMenu.task && deleteTask(contextMenu.task?.id)}
+            onClick={() => contextMenu.shift && deleteShift(contextMenu.shift?.id)}
             className='flex gap-2 w-full text-left py-2 px-4 hover:bg-gray-100 items-center'
           >
             <Icon Component={FaCircleXmark} size='md' color='red' />
@@ -212,13 +212,13 @@ export default function PlanningScreen () {
               </div>
               <div className='mt-4 p-6 flex gap-2'>
                 <button
-                  onClick={() => deleteTask(modalContent.id)}
+                  onClick={() => deleteShift(modalContent.id)}
                   className='bg-red text-white py-2 px-4 rounded flex flex-grow font-semibold text-center'
                 >
                   Delete
                 </button>
                 <button
-                  onClick={() => modalContent && editTask({ ...modalContent })}
+                  onClick={() => modalContent && editShift({ ...modalContent })}
                   className='bg-green text-white py-2 px-4 rounded flex flex-grow font-semibold text-center'
                 >
                   Save
