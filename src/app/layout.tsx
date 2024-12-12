@@ -24,10 +24,10 @@ export default function RootLayout({
   return (
     <html
       lang='en'
-      className=' h-full min-h-full min-w-full w-full'
+      className='flex h-full min-h-full min-w-full w-full bg-grey'
     >
       <body
-        className={`${poppins.variable} antialiased h-full min-h-full min-w-full w-full`}
+        className={`${poppins.variable} antialiased flex h-full min-h-full min-w-full w-full`}
       >
         <Header />
         {children}

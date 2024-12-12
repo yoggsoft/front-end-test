@@ -7,17 +7,17 @@ import { FaRegClock, FaCirclePause, FaMoneyBill, FaEuroSign } from 'react-icons/
 import { PiWarningFill } from 'react-icons/pi';
 
 interface ShiftItemProps {
-	task: Shift;
+	shift: Shift;
   onContextMenu: (event: React.MouseEvent) => void;
-  onDragStart: (event: React.DragEvent, task: Shift) => void;
+  onDragStart: (event: React.DragEvent, shift: Shift) => void;
 }
 
-export default function ShiftItem ({ task, onContextMenu, onDragStart }: ShiftItemProps) {
-  const { id, type, pauseDuration, duration, startTime, endTime, wage } = task;
+export default function ShiftItem ({ shift, onContextMenu, onDragStart }: ShiftItemProps) {
+  const { id, type, pauseDuration, duration, startTime, endTime, wage } = shift;
 
   const dragableProps = {
     draggable: true,
-    onDragStart: (event: React.DragEvent) => onDragStart(event, task),
+    onDragStart: (event: React.DragEvent) => onDragStart(event, shift),
     onContextMenu: onContextMenu
   }
 

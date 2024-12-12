@@ -8,16 +8,18 @@ interface DayColumnProps {
   day: string;
   shifts: Array<Shift>;
   moveShift: (id: string, newDay: string) => void;
-  openContextMenu: (event: React.MouseEvent, task: Shift) => void;
+  openContextMenu: (event: React.MouseEvent, shift: Shift) => void;
 }
 
-export default function DayColumn ({ day, shifts, moveShift, openContextMenu }: DayColumnProps) {
+export default function DayColumn ({
+  day, shifts, moveShift, openContextMenu
+}: DayColumnProps) {
   const handleDrop = (event: React.DragEvent) => {
     event.preventDefault();
-    const taskId = event.dataTransfer.getData('taskId');
+    const shiftId = event.dataTransfer.getData('shiftId');
 
-    if (taskId) {
-      moveShift(taskId, day);
+    if (shiftId) {
+      moveShift(shiftId, day);
     }
   };
 
@@ -29,19 +31,19 @@ export default function DayColumn ({ day, shifts, moveShift, openContextMenu }: 
     <div
       onDrop={handleDrop}
       onDragOver={handleDragOver}
-      className='p-4 bg-white w-64 border-r-0 border last:border-r-1'
+      className='p-4 bg-white w-64 border-t-2 border-b-2 border-l-2 last:border-r-2'
     >
       <h2 className='text-lg font-bold mb-2'>{day}</h2>
-      {shifts.map((task) => (
+      {shifts.map((shift) => (
         <ShiftItem
-          key={task.id}
-          task={task}
+          key={shift.id}
+          shift={shift}
           onContextMenu={(event) => {
             event.preventDefault();
-            openContextMenu(event, task);
+            openContextMenu(event, shift);
           }}
-          onDragStart={(event, task) => {
-            event.dataTransfer.setData('taskId', task.id);
+          onDragStart={(event, shift) => {
+            event.dataTransfer.setData('shiftId', shift.id);
           }}
         />
       ))}
